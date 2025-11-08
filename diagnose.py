@@ -24,12 +24,12 @@ print()
 # 3. Check for required files
 print("3. Required Files:")
 required_files = [
-    'app.py',
-    'router_agent.py',
-    'database.py',
-    'query_router.db',
-    '.env',
-    'requirements.txt'
+    "app.py",
+    "router_agent.py",
+    "database.py",
+    "query_router.db",
+    ".env",
+    "requirements.txt",
 ]
 
 for file in required_files:
@@ -40,16 +40,16 @@ print()
 # 4. Check imports
 print("4. Testing Imports:")
 imports_to_test = [
-    ('flask', 'Flask'),
-    ('dotenv', 'python-dotenv'),
-    ('google.generativeai', 'google-generativeai'),
-    ('langchain', 'langchain'),
-    ('pandas', 'pandas'),
+    ("flask", "Flask"),
+    ("dotenv", "python-dotenv"),
+    ("google.generativeai", "google-generativeai"),
+    ("langchain", "langchain"),
+    ("pandas", "pandas"),
 ]
 
 for module, package in imports_to_test:
     try:
-        __import__(module.split('.')[0])
+        __import__(module.split(".")[0])
         print(f"   ✓ {package}")
     except ImportError as e:
         print(f"   ❌ {package} - {e}")
@@ -59,8 +59,9 @@ print()
 print("5. Environment Variables:")
 try:
     from dotenv import load_dotenv
+
     load_dotenv()
-    api_key = os.getenv('GOOGLE_API_KEY')
+    api_key = os.getenv("GOOGLE_API_KEY")
     if api_key:
         masked = api_key[:10] + "..." if len(api_key) > 10 else "***"
         print(f"   ✓ GOOGLE_API_KEY: {masked}")
@@ -74,11 +75,13 @@ print()
 print("6. Testing Flask App Creation:")
 try:
     from flask import Flask
+
     test_app = Flask(__name__)
     print(f"   ✓ Flask app created successfully")
 except Exception as e:
     print(f"   ❌ Error creating Flask app: {e}")
     import traceback
+
     traceback.print_exc()
 print()
 
@@ -87,6 +90,7 @@ print("7. Testing Main App Import:")
 try:
     sys.path.insert(0, os.getcwd())
     from app import app as main_app
+
     print(f"   ✓ Main app imported successfully")
     print(f"   ✓ App name: {main_app.name}")
 except Exception as e:
@@ -94,6 +98,7 @@ except Exception as e:
     print()
     print("   Full traceback:")
     import traceback
+
     traceback.print_exc()
 print()
 
@@ -104,7 +109,7 @@ import socket
 ports_to_check = [5000, 5001, 5002, 8080]
 for port in ports_to_check:
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    result = sock.connect_ex(('localhost', port))
+    result = sock.connect_ex(("localhost", port))
     sock.close()
     status = "❌ In Use" if result == 0 else "✓ Available"
     print(f"   {status} - Port {port}")
@@ -112,10 +117,11 @@ print()
 
 # 9. Check database
 print("9. Database Check:")
-if os.path.exists('query_router.db'):
+if os.path.exists("query_router.db"):
     import sqlite3
+
     try:
-        conn = sqlite3.connect('query_router.db')
+        conn = sqlite3.connect("query_router.db")
         cursor = conn.cursor()
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
         tables = cursor.fetchall()
@@ -136,10 +142,10 @@ print("📋 SUMMARY")
 print("=" * 80)
 print()
 
-if not os.path.exists('app.py'):
+if not os.path.exists("app.py"):
     print("❌ CRITICAL: app.py not found!")
     print("   Solution: Make sure you're in /Users/pranavks/hackathon")
-elif not os.path.exists('.env'):
+elif not os.path.exists(".env"):
     print("⚠️  WARNING: .env file not found")
     print("   Solution: Create .env with GOOGLE_API_KEY")
 else:
@@ -149,4 +155,3 @@ else:
 
 print()
 print("=" * 80)
-

@@ -3,6 +3,7 @@ Configuration settings for the Customer Query Router system.
 """
 
 import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -29,52 +30,36 @@ TEAMS = {
     "kyc": {
         "name": "KYC Team",
         "email": "kyc@finlink.com",
-        "description": "Handles account verification, identity checks, and compliance documentation"
+        "description": "Handles account verification, identity checks, and compliance documentation",
     },
     "tech_support": {
         "name": "Tech Support",
         "email": "tech-support@finlink.com",
-        "description": "Handles API issues, technical errors, and integration problems"
+        "description": "Handles API issues, technical errors, and integration problems",
     },
     "finance": {
         "name": "Finance Team",
         "email": "finance@finlink.com",
-        "description": "Handles billing, invoices, payment processing, and refunds"
+        "description": "Handles billing, invoices, payment processing, and refunds",
     },
     "compliance": {
         "name": "Compliance Team",
         "email": "compliance@finlink.com",
-        "description": "Handles regulatory queries, audit requests, and policy questions"
+        "description": "Handles regulatory queries, audit requests, and policy questions",
     },
     "sales": {
         "name": "Sales Team",
         "email": "sales@finlink.com",
-        "description": "Handles new customer inquiries and business development"
-    }
+        "description": "Handles new customer inquiries and business development",
+    },
 }
 
 # Urgency Levels
 URGENCY_LEVELS = {
-    "critical": {
-        "response_time": "immediate",
-        "sla_hours": 1,
-        "auto_escalate": True
-    },
-    "high": {
-        "response_time": "4 hours",
-        "sla_hours": 4,
-        "auto_escalate": False
-    },
-    "medium": {
-        "response_time": "24 hours",
-        "sla_hours": 24,
-        "auto_escalate": False
-    },
-    "low": {
-        "response_time": "48 hours",
-        "sla_hours": 48,
-        "auto_escalate": False
-    }
+    "critical": {"response_time": "immediate", "sla_hours": 1, "auto_escalate": True},
+    "high": {"response_time": "4 hours", "sla_hours": 4, "auto_escalate": False},
+    "medium": {"response_time": "24 hours", "sla_hours": 24, "auto_escalate": False},
+    "low": {"response_time": "48 hours", "sla_hours": 48, "auto_escalate": False},
 }
 
 # Classification Thresholds

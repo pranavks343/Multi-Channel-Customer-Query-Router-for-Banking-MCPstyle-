@@ -4,26 +4,26 @@ Clean up all running processes and start fresh.
 Works on all platforms.
 """
 import os
-import sys
 import signal
-import subprocess
-import time
 import socket
+import subprocess
+import sys
+import time
+
 
 def find_process_on_port(port):
     """Find process ID using a specific port."""
     try:
         # Try using lsof (macOS/Linux)
         result = subprocess.run(
-            ['lsof', '-ti', f':{port}'],
-            capture_output=True,
-            text=True
+            ["lsof", "-ti", f":{port}"], capture_output=True, text=True
         )
         if result.returncode == 0 and result.stdout.strip():
             return int(result.stdout.strip().split()[0])
     except:
         pass
     return None
+
 
 def kill_process(pid):
     """Kill a process by PID."""
@@ -42,15 +42,16 @@ def kill_process(pid):
         print(f"  ⚠️  Could not kill PID {pid}: {e}")
         return False
 
+
 def kill_python_processes():
     """Kill Python processes running the app."""
     killed = []
     try:
         # Find Python processes
         result = subprocess.run(
-            ['pgrep', '-f', 'python.*(app|start|run_app).py'],
+            ["pgrep", "-f", "python.*(app|start|run_app).py"],
             capture_output=True,
-            text=True
+            text=True,
         )
         if result.returncode == 0:
             pids = [int(pid) for pid in result.stdout.strip().split() if pid]
@@ -62,14 +63,16 @@ def kill_python_processes():
         print(f"  Note: {e}")
     return killed
 
+
 def is_port_free(port):
     """Check if a port is free."""
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         try:
-            s.bind(('localhost', port))
+            s.bind(("localhost", port))
             return True
         except:
             return False
+
 
 print("=" * 80)
 print("🧹 Cleanup and Restart Script")
@@ -85,7 +88,9 @@ print()
 
 killed_pids = kill_python_processes()
 if killed_pids:
-    print(f"✓ Stopped {len(killed_pids)} process(es): {', '.join(map(str, killed_pids))}")
+    print(
+        f"✓ Stopped {len(killed_pids)} process(es): {', '.join(map(str, killed_pids))}"
+    )
 else:
     print("  No Python app processes found")
 
@@ -133,12 +138,12 @@ print()
 # Start the server
 try:
     # Import and run start.py logic
-    exec(open('start.py').read())
+    exec(open("start.py").read())
 except KeyboardInterrupt:
     print("\n\n✓ Server stopped by user")
 except Exception as e:
     print(f"\n❌ Error starting server: {e}")
     import traceback
+
     traceback.print_exc()
     sys.exit(1)
-

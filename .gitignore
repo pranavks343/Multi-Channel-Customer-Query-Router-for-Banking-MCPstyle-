@@ -37,6 +37,9 @@ chroma_db/
 
 # Exports
 tickets_*.csv
+exports/
+logs/
+backups/
 
 # IDE
 .vscode/

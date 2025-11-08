@@ -3,15 +3,17 @@
 Simple launcher script for the Flask application.
 This script ensures the app runs on an available port.
 """
+import os
 import socket
 import subprocess
 import sys
-import os
+
 
 def is_port_in_use(port):
     """Check if a port is already in use."""
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        return s.connect_ex(('localhost', port)) == 0
+        return s.connect_ex(("localhost", port)) == 0
+
 
 def find_available_port(start_port=8000, max_attempts=10):
     """Find an available port starting from start_port."""
@@ -19,6 +21,7 @@ def find_available_port(start_port=8000, max_attempts=10):
         if not is_port_in_use(port):
             return port
     return None
+
 
 # Change to the script's directory
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -50,8 +53,7 @@ print("=" * 80)
 # Run the Flask app
 try:
     # Use exec to replace this process with the Flask app
-    os.execl(sys.executable, sys.executable, 'app.py', str(port))
+    os.execl(sys.executable, sys.executable, "app.py", str(port))
 except Exception as e:
     print(f"❌ Error starting application: {e}")
     sys.exit(1)
-
