@@ -36,12 +36,12 @@ print(f"✓ Working directory: {os.getcwd()}")
 print()
 
 # Check for required files
-required_files = ["app.py", "router_agent.py", "database.py", "query_router.db"]
+required_files = ["app.py"]
 missing_files = [f for f in required_files if not os.path.exists(f)]
 
 if missing_files:
     print(f"❌ Missing required files: {', '.join(missing_files)}")
-    print("   Please run: python init_system.py")
+    print("   Please ensure you're running from the backend directory")
     sys.exit(1)
 
 print("✓ All required files present")

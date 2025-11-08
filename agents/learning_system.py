@@ -7,7 +7,7 @@ import re
 from collections import Counter, defaultdict
 from typing import Dict, List, Optional
 
-from database import Database
+from .database import Database
 
 
 class LearningSystem:

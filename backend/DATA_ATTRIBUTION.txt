@@ -1,0 +1,105 @@
+DATA ATTRIBUTION AND ACKNOWLEDGMENTS
+=====================================
+
+This project uses the following open-source tools, libraries, datasets, and APIs:
+
+1. PYTHON LIBRARIES
+-------------------
+- Flask (v3.0.0+)
+  License: BSD License
+  Source: https://flask.palletsprojects.com/
+  Purpose: Web framework for REST API and web interface
+
+- google-generativeai (v0.3.0+)
+  License: Apache License 2.0
+  Source: https://github.com/google/generative-ai-python
+  Purpose: Google Gemini AI API client for NLP classification and response generation
+
+- python-dotenv (v1.0.0+)
+  License: BSD License
+  Source: https://github.com/theskumar/python-dotenv
+  Purpose: Environment variable management
+
+- pandas (v2.1.0+)
+  License: BSD License
+  Source: https://pandas.pydata.org/
+  Purpose: Data manipulation and analysis
+
+- beautifulsoup4 (v4.12.0+)
+  License: MIT License
+  Source: https://www.crummy.com/software/BeautifulSoup/
+  Purpose: HTML parsing for RAG knowledge base
+
+2. AI/ML SERVICES
+-----------------
+- Google Gemini AI API
+  Provider: Google LLC
+  Service: Generative AI for intent classification and response generation
+  Terms: https://ai.google.dev/terms
+  Purpose: 
+    - Semantic understanding of customer queries
+    - Intent classification and entity extraction
+    - Sentiment analysis
+    - Response generation using RAG
+
+3. DATABASES
+------------
+- SQLite
+  License: Public Domain
+  Source: https://www.sqlite.org/
+  Purpose: Local database for ticket storage and routing history
+
+4. PROGRAMMING LANGUAGE
+-----------------------
+- Python (3.11+)
+  License: Python Software Foundation License
+  Source: https://www.python.org/
+  Purpose: Core programming language
+
+5. FRONTEND TECHNOLOGIES
+------------------------
+- HTML5, CSS3, JavaScript (ES6+)
+  Standards: W3C
+  Purpose: Web interface and dashboard
+
+6. DEVELOPMENT TOOLS
+--------------------
+- Git (Version Control)
+  License: GPL v2
+  Source: https://git-scm.com/
+  Purpose: Version control and collaboration
+
+7. KNOWLEDGE BASE CONTENT
+-------------------------
+- HTML Documentation Pages
+  Source: Custom created for this project
+  Purpose: RAG knowledge base for response generation
+  Note: All HTML pages in the /pages directory are original content created
+  specifically for this project to serve as the knowledge base for the RAG system.
+
+8. SAMPLE DATA
+--------------
+- Sample queries and responses
+  Source: Custom created for demonstration purposes
+  Purpose: Testing and demonstration
+  Note: All sample data in sample_data.py is synthetic and created for
+  testing purposes only.
+
+ACKNOWLEDGMENTS
+---------------
+We acknowledge and thank:
+- Google for providing the Gemini AI API
+- The Flask development team for the excellent web framework
+- The Python community for the rich ecosystem of libraries
+- All open-source contributors whose work made this project possible
+
+LICENSE COMPLIANCE
+------------------
+All dependencies used in this project are compatible with the MIT License
+under which this project is released. We have ensured compliance with all
+third-party licenses and terms of service.
+
+For questions regarding data attribution, please contact: [your-email@example.com]
+
+Last Updated: November 2025
+

@@ -9,7 +9,7 @@ RouterAgent() handles the entire routing pipeline automatically.
 import json
 from typing import Dict, List, Optional
 
-from router_agent import RouterAgent
+from .router_agent import RouterAgent
 
 
 class AutoRouterHelper:

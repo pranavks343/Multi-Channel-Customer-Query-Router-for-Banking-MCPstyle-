@@ -7,7 +7,10 @@ import os
 import sys
 from datetime import datetime, timedelta
 
-from database import Database
+# Add parent directory to path to import from agents
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from agents.database import Database
 
 
 def main():

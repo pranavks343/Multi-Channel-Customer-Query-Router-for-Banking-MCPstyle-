@@ -6,7 +6,13 @@ with the 3 example scenarios.
 import json
 from datetime import datetime
 
-from router_agent import RouterAgent
+import os
+import sys
+
+# Add parent directory to path to import from agents
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from agents.router_agent import RouterAgent
 
 
 def print_separator(char="=", length=80):

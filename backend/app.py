@@ -5,6 +5,7 @@ Provides REST API and web UI for query routing.
 
 import json
 import os
+import sys
 import time
 from datetime import datetime
 
@@ -19,12 +20,17 @@ from flask import (
     stream_with_context,
 )
 
-from router_agent import RouterAgent
+# Add parent directory to path to import from agents
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from agents.router_agent import RouterAgent
 from sample_data import get_canned_responses, get_sample_queries
 
 load_dotenv()
 
-app = Flask(__name__)
+# Set template folder to frontend/templates
+template_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'frontend', 'templates')
+app = Flask(__name__, template_folder=template_dir)
 app.config["JSON_SORT_KEYS"] = False
 
 # Initialize router agent

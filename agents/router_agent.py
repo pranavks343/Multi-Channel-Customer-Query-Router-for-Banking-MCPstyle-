@@ -6,11 +6,11 @@ Integrates intent classification, RAG, and ticket management.
 import json
 from typing import Dict, List, Optional
 
-from database import Database
-from intent_classifier import IntentClassifier
-from learning_system import LearningSystem
-from rag_system import RAGSystem
-from ticket_manager import TicketManager
+from .database import Database
+from .intent_classifier import IntentClassifier
+from .learning_system import LearningSystem
+from .rag_system import RAGSystem
+from .ticket_manager import TicketManager
 
 
 class RouterAgent:

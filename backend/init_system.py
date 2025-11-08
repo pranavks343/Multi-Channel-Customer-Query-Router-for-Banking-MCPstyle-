@@ -4,11 +4,15 @@ Initializes database, RAG system, and prepares the environment.
 """
 
 import os
+import sys
 
 from dotenv import load_dotenv
 
-from database import Database
-from rag_system import RAGSystem
+# Add parent directory to path to import from agents
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from agents.database import Database
+from agents.rag_system import RAGSystem
 
 
 def check_environment():
@@ -83,7 +87,7 @@ def test_classifier():
     print("\nTesting intent classifier...")
 
     try:
-        from intent_classifier import IntentClassifier
+        from agents.intent_classifier import IntentClassifier
 
         classifier = IntentClassifier()
 

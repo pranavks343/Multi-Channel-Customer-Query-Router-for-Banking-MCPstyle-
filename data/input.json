@@ -1,0 +1,50 @@
+{
+  "queries": [
+    {
+      "channel": "email",
+      "sender": "john.doe@techcorp.com",
+      "subject": "Vendor account verification stuck",
+      "message": "Hello, we tried adding a new vendor bank account, but the verification is stuck on 'Pending' for 2 days.",
+      "expected_team": "KYC Team",
+      "expected_urgency": "high"
+    },
+    {
+      "channel": "chat",
+      "sender": "sarah.wilson@startupxyz.com",
+      "subject": null,
+      "message": "We need to update our company registration documents. The current ones expire next month. What's the process?",
+      "expected_team": "KYC Team",
+      "expected_urgency": "medium"
+    },
+    {
+      "channel": "form",
+      "sender": "tech@merchantpay.com",
+      "subject": "API integration error 403",
+      "message": "API integration keeps failing with error code 403 when we push payment data. We've checked our API keys and they seem correct.",
+      "expected_team": "Tech Support",
+      "expected_urgency": "high"
+    },
+    {
+      "channel": "form",
+      "sender": "billing@acmecorp.com",
+      "subject": "Invoice discrepancy inquiry",
+      "message": "Our monthly invoice for August shows an extra $120 charge. Can you please review and clarify this discrepancy?",
+      "expected_team": "Finance Team",
+      "expected_urgency": "medium"
+    },
+    {
+      "channel": "email",
+      "sender": "support@customer.com",
+      "subject": "Payment processing issue",
+      "message": "We're experiencing delays in payment processing. Transactions are taking longer than usual to complete.",
+      "expected_team": "Tech Support",
+      "expected_urgency": "high"
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "description": "Input queries for testing and processing",
+    "created_at": "2025-01-01T00:00:00Z"
+  }
+}
+

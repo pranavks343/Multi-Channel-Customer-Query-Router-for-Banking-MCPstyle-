@@ -7,7 +7,7 @@ import uuid
 from datetime import datetime
 from typing import Dict, List, Optional
 
-from database import Database
+from .database import Database
 
 
 class TicketManager:

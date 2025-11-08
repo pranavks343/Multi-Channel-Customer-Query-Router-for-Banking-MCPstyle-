@@ -1,0 +1,17 @@
+{
+  "results": [],
+  "metadata": {
+    "version": "1.0",
+    "description": "Output results from query processing",
+    "created_at": "2025-01-01T00:00:00Z",
+    "last_updated": null
+  },
+  "statistics": {
+    "total_processed": 0,
+    "successful": 0,
+    "failed": 0,
+    "by_team": {},
+    "by_urgency": {}
+  }
+}
+
