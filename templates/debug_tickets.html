@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tickets Debug View</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .ticket {
+            border: 2px solid #333;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .ticket-id {
+            font-weight: bold;
+            color: #ff1493;
+            font-size: 1.1em;
+        }
+        .urgency {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: white;
+        }
+        .urgency-critical { background: #ef4444; }
+        .urgency-high { background: #facc15; color: #000; }
+        .urgency-medium { background: #38bdf8; }
+        .urgency-low { background: #22c55e; }
+        .message {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+        .meta {
+            color: #666;
+            font-size: 0.9em;
+        }
+        button {
+            padding: 10px 20px;
+            background: #ff1493;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #ff69b4;
+        }
+        .delete-btn {
+            background: #ef4444;
+            padding: 5px 15px;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        .delete-btn:hover {
+            background: #dc2626;
+        }
+        .stats {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .error {
+            color: red;
+            padding: 10px;
+            background: #fee;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎟️ Tickets Debug View</h1>
+    
+    <div class="stats" id="stats">
+        <h3>Loading stats...</h3>
+    </div>
+
+    <div>
+        <button onclick="loadTickets()">🔄 Refresh Tickets</button>
+        <button onclick="location.href='/'">⬅️ Back to Main App</button>
+        <button onclick="clearCache()">🗑️ Clear Cache & Reload</button>
+        <button class="delete-btn" onclick="deleteAllTickets()" style="background: #dc2626;">🗑️ Delete All Tickets</button>
+    </div>
+
+    <div id="error"></div>
+    <div id="tickets-container"></div>
+
+    <script>
+        async function loadTickets() {
+            const container = document.getElementById('tickets-container');
+            const errorDiv = document.getElementById('error');
+            
+            container.innerHTML = '<p>Loading tickets...</p>';
+            errorDiv.innerHTML = '';
+
+            try {
+                const response = await fetch('/api/tickets');
+                const data = await response.json();
+
+                if (!data.success) {
+                    errorDiv.innerHTML = `<div class="error">API Error: ${JSON.stringify(data)}</div>`;
+                    return;
+                }
+
+                const tickets = data.tickets;
+                
+                document.getElementById('stats').innerHTML = `
+                    <h3>📊 Stats</h3>
+                    <p><strong>Total Tickets:</strong> ${data.count}</p>
+                    <p><strong>API Response:</strong> Success</p>
+                    <p><strong>Last Updated:</strong> ${new Date().toLocaleString()}</p>
+                `;
+
+                if (tickets.length === 0) {
+                    container.innerHTML = '<p><strong>No tickets found</strong></p>';
+                    return;
+                }
+
+                container.innerHTML = '<h2>Recent Tickets (Most Recent First)</h2>' + 
+                    tickets.map((ticket, index) => `
+                        <div class="ticket" id="ticket-${ticket.ticket_id}">
+                            <div class="ticket-header">
+                                <span class="ticket-id">#${index + 1}: ${ticket.ticket_id}</span>
+                                <div>
+                                    <span class="urgency urgency-${ticket.urgency}">${ticket.urgency.toUpperCase()}</span>
+                                    <button class="delete-btn" onclick="deleteTicket('${ticket.ticket_id}')">🗑️ Delete</button>
+                                </div>
+                            </div>
+                            <div class="message">${ticket.message}</div>
+                            <div class="meta">
+                                📡 Channel: <strong>${ticket.channel}</strong> | 
+                                👥 Team: <strong>${ticket.assigned_team}</strong> | 
+                                🏷️ Intent: <strong>${ticket.intent}</strong> |
+                                📅 Created: <strong>${ticket.created_at}</strong>
+                            </div>
+                        </div>
+                    `).join('');
+            } catch (error) {
+                errorDiv.innerHTML = `<div class="error">Error loading tickets: ${error.message}</div>`;
+                console.error('Error:', error);
+            }
+        }
+
+        async function deleteTicket(ticketId) {
+            if (!confirm(`Are you sure you want to delete ticket ${ticketId}? This action cannot be undone.`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/tickets/${ticketId}`, {
+                    method: 'DELETE'
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    // Remove ticket from UI
+                    const ticketElement = document.getElementById(`ticket-${ticketId}`);
+                    if (ticketElement) {
+                        ticketElement.style.transition = 'opacity 0.3s';
+                        ticketElement.style.opacity = '0';
+                        setTimeout(() => {
+                            ticketElement.remove();
+                            // Reload tickets to update count
+                            loadTickets();
+                        }, 300);
+                    }
+                } else {
+                    alert(`Error deleting ticket: ${data.error || 'Unknown error'}`);
+                }
+            } catch (error) {
+                alert(`Error deleting ticket: ${error.message}`);
+                console.error('Error:', error);
+            }
+        }
+
+        async function deleteAllTickets() {
+            try {
+                const statsResponse = await fetch('/api/stats');
+                const statsData = await statsResponse.json();
+                const ticketCount = statsData.stats?.total_tickets || 0;
+                
+                if (ticketCount === 0) {
+                    alert('ℹ️ No tickets to delete.');
+                    return;
+                }
+                
+                const confirmMessage = `⚠️ WARNING: This will permanently delete ALL ${ticketCount} ticket(s) from the database.\n\nThis action cannot be undone!\n\nAre you absolutely sure you want to proceed?`;
+                
+                if (!confirm(confirmMessage)) {
+                    return;
+                }
+                
+                // Double confirmation for safety
+                if (!confirm('⚠️ Final confirmation: Delete ALL tickets?\n\nType OK or Cancel.')) {
+                    return;
+                }
+                
+                const response = await fetch('/api/tickets', {
+                    method: 'DELETE'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert(`✅ ${data.message}\n\nAll tickets have been permanently deleted from the database.`);
+                    loadTickets(); // Refresh the ticket list
+                } else {
+                    alert('❌ Error deleting tickets: ' + (data.error || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error deleting all tickets:', error);
+                alert('Error deleting all tickets: ' + error.message);
+            }
+        }
+
+        function clearCache() {
+            if (confirm('This will clear browser cache and reload. Continue?')) {
+                // Clear localStorage
+                localStorage.clear();
+                
+                // Clear sessionStorage
+                sessionStorage.clear();
+                
+                // Hard reload
+                location.reload(true);
+            }
+        }
+
+        // Load tickets on page load
+        loadTickets();
+
+        // Auto-refresh every 5 seconds
+        setInterval(loadTickets, 5000);
+    </script>
+</body>
+</html>
+

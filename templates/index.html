@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinLink Command Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f5f5f5;
+            --bg-alt: #ffffff;
+            --glass: #ffffff;
+            --glass-border: #e0e0e0;
+            --primary: #2196f3;
+            --primary-strong: #1976d2;
+            --accent: #ff9800;
+            --text: #333333;
+            --muted: #757575;
+            --success: #4caf50;
+            --warning: #ffc107;
+            --danger: #f44336;
+            --card-radius: 8px;
+            --transition: 200ms ease;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: stretch;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: none;
+            pointer-events: none;
+        }
+
+        .app-shell {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 36px;
+            padding: 40px clamp(24px, 4vw, 60px);
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .sidebar {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .brand-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--card-radius);
+            background: var(--primary);
+            display: grid;
+            place-items: center;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.05em;
+            box-shadow: none;
+            color: white;
+        }
+
+        .brand-copy h1 {
+            font-size: 1.4rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .brand-copy p {
+            margin: 4px 0 0;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .sidebar-section h2 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .sidebar-metrics {
+            display: grid;
+            gap: 14px;
+        }
+
+        .sidebar-metric {
+            background: white;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transition: border-color var(--transition);
+        }
+
+        .sidebar-metric:hover {
+            border-color: var(--primary);
+        }
+
+        .sidebar-metric span {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .sidebar-metric strong {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: grid;
+            gap: 10px;
+        }
+
+        .nav-links button {
+            all: unset;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            color: var(--muted);
+            cursor: pointer;
+            transition: background var(--transition), color var(--transition);
+        }
+
+        .nav-links button:hover,
+        .nav-links button.active {
+            color: var(--primary);
+            background: rgba(33, 150, 243, 0.1);
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            display: grid;
+            gap: 12px;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .confidence-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 12px;
+            background: var(--primary);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .content-region {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .hero-header {
+            background: white;
+            border-radius: var(--card-radius);
+            border: 1px solid var(--glass-border);
+            padding: 24px;
+            display: grid;
+            gap: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-header-top {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hero-copy h2 {
+            font-size: clamp(1.6rem, 2.2vw, 2.3rem);
+            margin: 0 0 6px;
+        }
+
+        .hero-copy p {
+            margin: 0;
+            color: var(--muted);
+            max-width: 580px;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 16px;
+            background: var(--bg);
+            border: 1px solid var(--glass-border);
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 18px;
+        }
+
+        .hero-metric-card {
+            background: white;
+            border-radius: var(--card-radius);
+            padding: 16px;
+            border: 1px solid var(--glass-border);
+            display: grid;
+            gap: 6px;
+        }
+
+        .hero-metric-card span {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .hero-metric-card strong {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .panel-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+            gap: 28px;
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .panel header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .panel header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            letter-spacing: 0.02em;
+        }
+
+        .muted {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .gradient-button {
+            background: var(--primary);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: var(--card-radius);
+            cursor: pointer;
+            transition: background var(--transition);
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .gradient-button:hover {
+            background: var(--primary-strong);
+        }
+
+        .ghost-button {
+            background: white;
+            border: 1px solid var(--glass-border);
+            color: var(--text);
+            font-weight: 500;
+            padding: 10px 16px;
+            border-radius: var(--card-radius);
+            cursor: pointer;
+            transition: background var(--transition), border-color var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ghost-button:hover {
+            background: var(--bg);
+            border-color: var(--primary);
+        }
+
+        .danger-button {
+            background: var(--danger);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 10px 16px;
+            border-radius: var(--card-radius);
+            cursor: pointer;
+            transition: background var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .danger-button:hover {
+            background: #d32f2f;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .form-group {
+            display: grid;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .input, select, textarea {
+            width: 100%;
+            background: white;
+            border: 1px solid var(--glass-border);
+            color: var(--text);
+            border-radius: var(--card-radius);
+            padding: 10px 12px;
+            font-size: 0.95rem;
+            transition: border-color var(--transition);
+        }
+
+        select:focus, input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group small.muted {
+            display: block;
+            margin-top: 4px;
+            font-size: 0.75rem;
+            color: rgba(148, 163, 184, 0.7);
+        }
+
+        .channel-fields {
+            display: grid;
+            gap: 18px;
+        }
+
+        .sample-queries {
+            display: grid;
+            gap: 12px;
+        }
+
+        .sample-queries .label {
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        .sample-query {
+            background: white;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: border-color var(--transition), background var(--transition);
+        }
+
+        .sample-query:hover {
+            border-color: var(--primary);
+            background: rgba(33, 150, 243, 0.05);
+        }
+
+        .sample-query h4 {
+            margin: 0 0 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .sample-query p {
+            margin: 0;
+            color: rgba(148, 163, 184, 0.85);
+            font-size: 0.85rem;
+        }
+
+        .inline-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .loading {
+            display: none;
+            width: 100%;
+            border-radius: var(--card-radius);
+            background: white;
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            text-align: center;
+            color: var(--text);
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            border: 3px solid var(--bg);
+            border-top-color: var(--primary);
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .result-box {
+            display: grid;
+            gap: 12px;
+            background: white;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            padding: 20px;
+        }
+
+        .result-box h3 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.05rem;
+        }
+
+        .result-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 10px 12px;
+            border-radius: var(--card-radius);
+            background: var(--bg);
+            border: 1px solid var(--glass-border);
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-critical { background: var(--danger); color: white; }
+        .badge-high { background: var(--warning); color: #333; }
+        .badge-medium { background: var(--primary); color: white; }
+        .badge-low { background: var(--success); color: white; }
+
+        .response-box {
+            display: grid;
+            gap: 12px;
+            padding: 20px;
+            border-radius: var(--card-radius);
+            background: rgba(76, 175, 80, 0.08);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            margin-top: 16px;
+        }
+
+        .response-box h4 {
+            margin: 0 0 12px 0;
+            font-size: 0.95rem;
+            color: var(--text);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .response-box h4::before {
+            content: "✉️";
+            font-size: 1.1rem;
+        }
+
+        .response-text {
+            margin: 0;
+            color: var(--text);
+            line-height: 1.8;
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            letter-spacing: 0.01em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            padding: 16px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .events-box {
+            display: grid;
+            gap: 16px;
+        }
+
+        .events-list {
+            max-height: 320px;
+            overflow-y: auto;
+            display: grid;
+            gap: 12px;
+        }
+
+        .event-item {
+            background: white;
+            border: 1px solid var(--glass-border);
+            border-left: 3px solid var(--primary);
+            border-radius: var(--card-radius);
+            padding: 12px 16px;
+            display: grid;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+
+        .event-time {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        .tickets-panel {
+            display: grid;
+            gap: 20px;
+        }
+
+        .tickets-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tickets-list {
+            display: grid;
+            gap: 16px;
+            max-height: 460px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        .ticket-item {
+            background: white;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            padding: 16px;
+            display: grid;
+            gap: 10px;
+            transition: border-color var(--transition), box-shadow var(--transition);
+        }
+
+        .ticket-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .ticket-id {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--primary);
+        }
+
+        .ticket-message {
+            color: var(--text);
+            line-height: 1.5;
+            font-size: 0.92rem;
+        }
+
+        .ticket-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 18px;
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        .ticket-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ticket-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .ticket-actions button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-weight: 500;
+        }
+
+        .btn-edit {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: var(--primary-strong);
+        }
+
+        .btn-delete {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #d32f2f;
+        }
+
+        .btn-view {
+            background: var(--muted);
+            color: white;
+        }
+
+        .btn-view:hover {
+            background: #616161;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: var(--card-radius);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--muted);
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+        }
+
+        .close-modal:hover {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--glass-border);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: border-color var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .modal-footer {
+            padding: 20px 24px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .modal-footer button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all var(--transition);
+        }
+
+        .btn-cancel {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .btn-cancel:hover {
+            background: var(--glass-border);
+        }
+
+        .btn-save {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-save:hover {
+            background: var(--primary-strong);
+        }
+
+        @media (max-width: 1280px) {
+            .app-shell {
+                grid-template-columns: 1fr;
+                padding: 32px clamp(16px, 5vw, 36px);
+            }
+
+            .sidebar {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 24px;
+                justify-content: space-between;
+            }
+
+            .sidebar-section {
+                flex: 1 1 220px;
+            }
+        }
+
+        @media (max-width: 960px) {
+            .panel-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .sidebar {
+                grid-template-columns: 1fr;
+                flex-direction: column;
+            }
+
+            .hero-header {
+                padding: 24px;
+            }
+
+            .panel {
+                padding: 24px;
+            }
+
+            .tickets-toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .inline-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-logo">FL</div>
+                <div class="brand-copy">
+                    <h1>FinLink Command Center</h1>
+                    <p>Real-time query routing intelligence</p>
+                </div>
+            </div>
+
+            <section class="sidebar-section">
+                <h2>Live Pulse</h2>
+                <div class="sidebar-metrics">
+                    <div class="sidebar-metric">
+                        <span>Router Availability</span>
+                        <strong>99.98%</strong>
+                    </div>
+                    <div class="sidebar-metric">
+                        <span>Avg. Time to Route</span>
+                        <strong>3.2s</strong>
+                    </div>
+                    <div class="sidebar-metric">
+                        <span>AI Confidence</span>
+                        <strong>94%</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section class="sidebar-section">
+                <h2>Navigation</h2>
+                <div class="nav-links">
+                    <button class="active" onclick="showSection('intake', event)">
+                        <span>Query Intake</span>
+                    </button>
+                    <button onclick="showSection('operations', event)">
+                        <span>Live Operations</span>
+                    </button>
+                    <button onclick="showSection('insights', event)">
+                        <span>Insights &amp; Trends</span>
+                    </button>
+                    <button onclick="window.location.href='/email'">
+                        <span>📧 Email Channel</span>
+                    </button>
+                </div>
+            </section>
+
+            <div class="sidebar-footer">
+                <span class="confidence-chip">Updated <span id="lastUpdated">&mdash;</span></span>
+                <span>Monitor performance in LangSmith for end-to-end traceability.</span>
+            </div>
+        </aside>
+
+        <main class="content-region">
+            <section class="hero-header">
+                <div class="hero-header-top">
+                    <div class="hero-copy">
+                        <h2>Route customer intent with precision.</h2>
+                        <p>Capture inbound requests, stream live routing telemetry, and keep your response teams ahead of critical issues with a unified control plane.</p>
+                    </div>
+                    <div class="hero-actions">
+                        <span class="pill">Live Mode&nbsp;&bull;&nbsp;SLA 4m</span>
+                        <span class="pill">Router Agent v2.3</span>
+                    </div>
+                </div>
+                <div class="hero-metrics">
+                    <div class="hero-metric-card">
+                        <span>Today</span>
+                        <strong id="heroTicketCount">0</strong>
+                        <span class="muted">Tickets processed</span>
+                    </div>
+                    <div class="hero-metric-card">
+                        <span>Critical Alerts</span>
+                        <strong id="heroCriticalCount">0</strong>
+                        <span class="muted">Unresolved</span>
+                    </div>
+                    <div class="hero-metric-card">
+                        <span>Auto Responses</span>
+                        <strong id="heroAutoCount">0</strong>
+                        <span class="muted">Last hour</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel-grid">
+                <article class="panel">
+                    <header>
+                        <h3>New inbound query</h3>
+                        <span class="muted">Submit contact form queries</span>
+                    </header>
+
+                    <div class="sample-queries" id="sampleQueries">
+                        <span class="label">Load a curated scenario:</span>
+                    </div>
+
+                    <form id="queryForm" class="form-grid">
+                        <!-- Contact Form Fields -->
+                        <div id="formFields" class="channel-fields">
+                            <div class="form-group">
+                                <label for="formName">Name / Company Name</label>
+                                <input type="text" id="formName" name="formName" placeholder="Acme Corp" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="formEmail">Email / Phone</label>
+                                <input type="text" id="formEmail" name="formEmail" placeholder="support@acme.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="formMessage">Message / Description</label>
+                                <textarea id="formMessage" name="formMessage" required placeholder="API integration keeps failing with code 403."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="formAttachment">Attachment (optional)</label>
+                                <input type="file" id="formAttachment" name="formAttachment" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx">
+                                <small class="muted">screenshot.png, etc.</small>
+                            </div>
+                        </div>
+
+                        <div class="inline-buttons">
+                            <button type="submit" class="gradient-button">Submit &amp; Route</button>
+                            <button type="button" class="ghost-button" onclick="loadSamples()">Refresh sample templates</button>
+                        </div>
+                    </form>
+
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        <p>Routing in progress. Streaming events to Live Operations...</p>
+                    </div>
+
+                    <div id="resultBox"></div>
+                </article>
+
+                <article class="panel">
+                    <header>
+                        <h3>Operations dashboard</h3>
+                        <span class="muted">Real-time metrics, routing telemetry, and alerts</span>
+                    </header>
+
+                    <div class="stats-grid" id="statsGrid">
+                        <div class="stat-card">
+                            <span class="stat-label">Total Tickets</span>
+                            <span class="stat-value" id="totalTickets">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-label">Critical</span>
+                            <span class="stat-value" id="criticalTickets">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-label">High Priority</span>
+                            <span class="stat-value" id="highTickets">0</span>
+                        </div>
+                    </div>
+
+                    <div class="events-box" id="eventsBox">
+                        <header>
+                            <h3>Live activity stream</h3>
+                            <span class="muted">Stay ahead of escalations as they happen</span>
+                        </header>
+                        <div class="events-list" id="eventsList"></div>
+                    </div>
+                </article>
+            </section>
+
+            <section class="panel tickets-panel">
+                <header>
+                    <h3>Recent ticket decisions</h3>
+                    <span class="muted">Top 10 routed tickets with latest metadata</span>
+                </header>
+                <div class="tickets-toolbar">
+                    <button class="gradient-button" onclick="loadTickets()">Refresh tickets</button>
+                    <button class="ghost-button" onclick="exportTickets()">Export CSV snapshot</button>
+                    <button class="ghost-button" onclick="window.open('/debug/tickets', '_blank')">🔍 Debug View</button>
+                    <button class="danger-button" onclick="deleteAllTickets()" style="margin-left: auto;">🗑️ Delete All Tickets</button>
+                </div>
+                <div id="ticketsStatus" style="padding: 12px; background: rgba(255, 215, 0, 0.2); border-radius: 8px; margin-bottom: 12px; font-size: 0.9rem; display: none;">
+                    ⏳ Loading tickets...
+                </div>
+                <div class="tickets-list" id="ticketsList">
+                    <div style="padding: 24px; text-align: center; color: var(--muted);">
+                        <div style="font-size: 3rem;">⏳</div>
+                        <p>Loading tickets...</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Edit Ticket Modal -->
+    <div id="editTicketModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Ticket</h3>
+                <button class="close-modal" onclick="closeEditModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editTicketForm">
+                    <input type="hidden" id="editTicketId" />
+                    <div class="form-group">
+                        <label for="editStatus">Status</label>
+                        <select id="editStatus">
+                            <option value="open">Open</option>
+                            <option value="pending">Pending</option>
+                            <option value="closed">Closed</option>
+                            <option value="resolved">Resolved</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editAssignedTeam">Assigned Team</label>
+                        <select id="editAssignedTeam">
+                            <option value="">Select team...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editUrgency">Urgency</label>
+                        <select id="editUrgency">
+                            <option value="critical">Critical</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editIntent">Intent</label>
+                        <select id="editIntent">
+                            <option value="kyc_verification">KYC Verification</option>
+                            <option value="technical_support">Technical Support</option>
+                            <option value="billing_finance">Billing/Finance</option>
+                            <option value="compliance_regulatory">Compliance/Regulatory</option>
+                            <option value="sales_inquiry">Sales Inquiry</option>
+                            <option value="general_support">General Support</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editSender">Sender</label>
+                        <input type="text" id="editSender" />
+                    </div>
+                    <div class="form-group">
+                        <label for="editSubject">Subject</label>
+                        <input type="text" id="editSubject" />
+                    </div>
+                    <div class="form-group">
+                        <label for="editMessage">Message</label>
+                        <textarea id="editMessage"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="editResponse">Response</label>
+                        <textarea id="editResponse"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeEditModal()">Cancel</button>
+                <button class="btn-save" onclick="saveTicket()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const eventSource = new EventSource('/api/stream_events');
+
+        eventSource.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            if (data.timestamp) {
+                document.getElementById('lastUpdated').textContent = new Date(data.timestamp).toLocaleTimeString();
+            }
+            addEvent(data);
+        };
+
+        function addEvent(event) {
+            const eventsList = document.getElementById('eventsList');
+            const eventItem = document.createElement('div');
+            eventItem.className = 'event-item';
+
+            const timestamp = event.timestamp ? new Date(event.timestamp).toLocaleTimeString() : new Date().toLocaleTimeString();
+            let message = '';
+
+            if (event.type === 'connected') {
+                message = 'Connected to live routing stream';
+            } else if (event.type === 'processing_started') {
+                message = `Processing ${event.channel} channel query`;
+            } else if (event.type === 'routing_completed') {
+                message = `Routed to ${event.team} &middot; ${event.urgency.toUpperCase()} priority`;
+            } else {
+                message = 'Event update received';
+            }
+
+            eventItem.innerHTML = `
+                <div>${message}</div>
+                <div class="event-time">${timestamp}</div>
+            `;
+
+            eventsList.insertBefore(eventItem, eventsList.firstChild);
+
+            while (eventsList.children.length > 12) {
+                eventsList.removeChild(eventsList.lastChild);
+            }
+        }
+
+        function updateFormFields() {
+            // Form fields are always visible now
+        }
+
+        function normalizeFormData() {
+            return {
+                channel: 'form',
+                sender: document.getElementById('formEmail').value,
+                subject: 'Contact Form Submission',
+                message: `From: ${document.getElementById('formName').value}\n\n` +
+                        document.getElementById('formMessage').value,
+                customer_name: document.getElementById('formName').value,
+                attachment: document.getElementById('formAttachment').files.length > 0 ? 
+                    document.getElementById('formAttachment').files[0].name : null,
+                auto_respond: true
+            };
+        }
+
+        document.getElementById('queryForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const loading = document.getElementById('loading');
+            const resultBox = document.getElementById('resultBox');
+
+            loading.classList.add('active');
+            resultBox.innerHTML = '';
+
+            const formData = normalizeFormData();
+
+            try {
+                const response = await fetch('/api/submit_query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    displayResult(data.result);
+                    loadStats();
+                    loadTickets();
+                    // Reset form
+                    document.getElementById('queryForm').reset();
+                    updateFormFields();
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) {
+                alert('Error submitting query: ' + error.message);
+            } finally {
+                loading.classList.remove('active');
+            }
+        });
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatResponseText(text) {
+            if (!text) return '';
+            // Escape HTML first
+            let formatted = escapeHtml(text);
+            // Replace double line breaks with paragraph breaks
+            formatted = formatted.replace(/\n\n+/g, '</p><p style="margin: 0 0 12px 0;">');
+            // Replace single line breaks with <br>
+            formatted = formatted.replace(/\n/g, '<br>');
+            // Wrap in paragraph tags
+            return '<p style="margin: 0 0 12px 0;">' + formatted + '</p>';
+        }
+
+        function displayResult(result) {
+            const resultBox = document.getElementById('resultBox');
+            const urgency = result.classification.urgency;
+
+            resultBox.innerHTML = `
+                <div class="result-box">
+                    <h3>
+                        <span>Query routed successfully</span>
+                        <span class="badge badge-${urgency}">${urgency.toUpperCase()}</span>
+                    </h3>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span>Ticket ID</span>
+                            <strong>${result.ticket_id}</strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Intent</span>
+                            <strong>${result.classification.intent}</strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Assigned Team</span>
+                            <strong>${result.routing.final_team}</strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Response Time</span>
+                            <strong>${result.routing.response_time}</strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Confidence</span>
+                            <strong>${(result.classification.confidence * 100).toFixed(0)}%</strong>
+                        </div>
+                    </div>
+                    ${result.response ? `
+                        <div class="response-box">
+                            <div class="response-text">${formatResponseText(result.response)}</div>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        async function loadStats() {
+            try {
+                // Add cache-busting to prevent stale stats
+                const timestamp = new Date().getTime(); // Unique timestamp for each request
+                const response = await fetch(`/api/stats?_t=${timestamp}`, {
+                    method: 'GET',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
+                    },
+                    cache: 'no-store'
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    const stats = data.stats;
+                    document.getElementById('totalTickets').textContent = stats.total_tickets;
+                    document.getElementById('criticalTickets').textContent = stats.by_urgency.critical || 0;
+                    document.getElementById('highTickets').textContent = stats.by_urgency.high || 0;
+
+                    document.getElementById('heroTicketCount').textContent = stats.total_tickets;
+                    document.getElementById('heroCriticalCount').textContent = stats.by_urgency.critical || 0;
+                    document.getElementById('heroAutoCount').textContent = stats.auto_responses || 0;
+                }
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        async function loadTickets() {
+            const statusDiv = document.getElementById('ticketsStatus');
+            const ticketsList = document.getElementById('ticketsList');
+            
+            try {
+                console.log('Loading tickets...');
+                
+                // Show loading status
+                if (statusDiv) {
+                    statusDiv.style.display = 'block';
+                    statusDiv.innerHTML = '⏳ Loading tickets...';
+                    statusDiv.style.background = 'rgba(255, 215, 0, 0.2)';
+                }
+                
+                // Add cache-busting to prevent browser from caching old tickets
+                const timestamp = new Date().getTime(); // Unique timestamp for each request
+                const response = await fetch(`/api/tickets?_t=${timestamp}`, {
+                    method: 'GET',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
+                    },
+                    cache: 'no-store'  // Prevent browser caching
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                console.log('Tickets API response:', data);
+                
+                if (data.success) {
+                    console.log(`Displaying ${data.tickets.length} tickets`);
+                    
+                    // Update status
+                    if (statusDiv) {
+                        statusDiv.style.background = 'rgba(50, 205, 50, 0.2)';
+                        statusDiv.innerHTML = `✅ Loaded ${data.tickets.length} tickets (Last updated: ${new Date().toLocaleTimeString()})`;
+                        setTimeout(() => {
+                            statusDiv.style.display = 'none';
+                        }, 3000);
+                    }
+                    
+                    displayTickets(data.tickets);
+                } else {
+                    console.error('API returned error:', data);
+                    
+                    if (statusDiv) {
+                        statusDiv.style.background = 'rgba(255, 68, 68, 0.2)';
+                        statusDiv.innerHTML = `❌ Error: ${data.error || 'Unknown error'}`;
+                    }
+                    
+                    if (ticketsList) {
+                        ticketsList.innerHTML = `
+                            <div style="padding: 24px; text-align: center; color: #ff4444;">
+                                <div style="font-size: 3rem;">❌</div>
+                                <p><strong>Error loading tickets</strong></p>
+                                <p style="font-size: 0.9rem;">${data.error || 'Unknown error'}</p>
+                                <button onclick="loadTickets()" style="margin-top: 12px; padding: 8px 16px; background: #ff1493; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                                    Try Again
+                                </button>
+                            </div>
+                        `;
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading tickets:', error);
+                
+                if (statusDiv) {
+                    statusDiv.style.display = 'block';
+                    statusDiv.style.background = 'rgba(255, 68, 68, 0.2)';
+                    statusDiv.innerHTML = `❌ Failed to load tickets: ${error.message}`;
+                }
+                
+                if (ticketsList) {
+                    ticketsList.innerHTML = `
+                        <div style="padding: 24px; text-align: center; color: #ff4444;">
+                            <div style="font-size: 3rem;">⚠️</div>
+                            <p><strong>Connection Error</strong></p>
+                            <p style="font-size: 0.9rem;">${error.message}</p>
+                            <button onclick="loadTickets()" style="margin-top: 12px; padding: 8px 16px; background: #ff1493; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                                Retry
+                            </button>
+                            <button onclick="window.open('/debug/tickets', '_blank')" style="margin-top: 12px; margin-left: 8px; padding: 8px 16px; background: #ffa500; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                                Open Debug View
+                            </button>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function displayTickets(tickets) {
+            const ticketsList = document.getElementById('ticketsList');
+
+            if (!ticketsList) {
+                console.error('ticketsList element not found!');
+                return;
+            }
+
+            console.log('displayTickets called with', tickets.length, 'tickets');
+
+            if (tickets.length === 0) {
+                ticketsList.innerHTML = '<p class="muted" style="padding: 24px; text-align: center;">No tickets yet</p>';
+                return;
+            }
+
+            const ticketsHTML = tickets.slice(0, 10).map(ticket => `
+                <div class="ticket-item">
+                    <div class="ticket-header">
+                        <span class="ticket-id">${ticket.ticket_id}</span>
+                        <span class="badge badge-${ticket.urgency}">${ticket.urgency.toUpperCase()}</span>
+                    </div>
+                    <div class="ticket-message">${ticket.message.substring(0, 160)}${ticket.message.length > 160 ? '…' : ''}</div>
+                    <div class="ticket-meta">
+                        <span>📡 ${ticket.channel}</span>
+                        <span>👥 ${ticket.assigned_team}</span>
+                        <span>🏷️ ${ticket.intent}</span>
+                        <span>📊 ${ticket.status || 'open'}</span>
+                    </div>
+                    <div class="ticket-actions">
+                        <button class="btn-view" onclick="viewTicket('${ticket.ticket_id}')">View</button>
+                        <button class="btn-edit" onclick="editTicket('${ticket.ticket_id}')">Edit</button>
+                        <button class="btn-delete" onclick="deleteTicket('${ticket.ticket_id}')">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            console.log('Setting innerHTML with', tickets.slice(0, 10).length, 'tickets');
+            ticketsList.innerHTML = ticketsHTML;
+        }
+
+        async function loadSamples() {
+            try {
+                const response = await fetch('/api/sample_queries');
+                const data = await response.json();
+
+                if (data.success) {
+                    displaySamples(data.samples.slice(0, 4));
+                }
+            } catch (error) {
+                console.error('Error loading samples:', error);
+            }
+        }
+
+        function displaySamples(samples) {
+            const sampleQueries = document.getElementById('sampleQueries');
+            
+            // Filter to only show form channel samples
+            const formSamples = samples.filter(sample => sample.channel === 'form');
+
+            sampleQueries.innerHTML = '<span class="label">Load a curated scenario:</span>' +
+                formSamples.map((sample, index) => `
+                    <div class="sample-query" onclick="fillSample(${samples.indexOf(sample)})">
+                        <h4>${sample.subject || sample.category || 'Scenario ' + (index + 1)}</h4>
+                        <p>${sample.message.substring(0, 120)}${sample.message.length > 120 ? '…' : ''}</p>
+                    </div>
+                `).join('');
+
+            window.sampleData = samples;
+        }
+
+        function fillSample(index) {
+            const sample = window.sampleData[index];
+            
+            // Only fill form fields (filter samples to form channel only)
+            if (sample.channel === 'form') {
+                document.getElementById('formName').value = sample.sender ? sample.sender.split('@')[0] : '';
+                document.getElementById('formEmail').value = sample.sender || '';
+                document.getElementById('formMessage').value = sample.message || '';
+            }
+        }
+
+        // CRUD Functions
+        async function viewTicket(ticketId) {
+            try {
+                const response = await fetch(`/api/tickets/${ticketId}`, {
+                    cache: 'no-store'
+                });
+                const data = await response.json();
+                
+                if (data.success && data.ticket) {
+                    const ticket = data.ticket;
+                    const details = `
+Ticket ID: ${ticket.ticket_id}
+Status: ${ticket.status || 'open'}
+Channel: ${ticket.channel}
+Sender: ${ticket.sender || 'N/A'}
+Subject: ${ticket.subject || 'N/A'}
+Urgency: ${ticket.urgency}
+Intent: ${ticket.intent}
+Assigned Team: ${ticket.assigned_team}
+Created: ${new Date(ticket.created_at).toLocaleString()}
+Updated: ${new Date(ticket.updated_at).toLocaleString()}
+
+Message:
+${ticket.message}
+
+Response:
+${ticket.response || 'No response yet'}
+                    `;
+                    alert(details);
+                } else {
+                    alert('Ticket not found');
+                }
+            } catch (error) {
+                console.error('Error viewing ticket:', error);
+                alert('Error loading ticket: ' + error.message);
+            }
+        }
+
+        async function editTicket(ticketId) {
+            try {
+                // Load ticket data
+                const response = await fetch(`/api/tickets/${ticketId}`, {
+                    cache: 'no-store'
+                });
+                const data = await response.json();
+                
+                if (!data.success || !data.ticket) {
+                    alert('Ticket not found');
+                    return;
+                }
+                
+                const ticket = data.ticket;
+                
+                // Populate form fields
+                document.getElementById('editTicketId').value = ticket.ticket_id;
+                document.getElementById('editStatus').value = ticket.status || 'open';
+                document.getElementById('editUrgency').value = ticket.urgency || 'medium';
+                document.getElementById('editIntent').value = ticket.intent || 'general_support';
+                document.getElementById('editSender').value = ticket.sender || '';
+                document.getElementById('editSubject').value = ticket.subject || '';
+                document.getElementById('editMessage').value = ticket.message || '';
+                document.getElementById('editResponse').value = ticket.response || '';
+                
+                // Load teams for dropdown
+                const teamsResponse = await fetch('/api/teams');
+                const teamsData = await teamsResponse.json();
+                const teamSelect = document.getElementById('editAssignedTeam');
+                teamSelect.innerHTML = '<option value="">Select team...</option>';
+                
+                if (teamsData.success && teamsData.teams) {
+                    teamsData.teams.forEach(team => {
+                        const option = document.createElement('option');
+                        option.value = team.team_name;
+                        option.textContent = team.team_name;
+                        if (team.team_name === ticket.assigned_team) {
+                            option.selected = true;
+                        }
+                        teamSelect.appendChild(option);
+                    });
+                }
+                
+                // Show modal
+                document.getElementById('editTicketModal').style.display = 'block';
+            } catch (error) {
+                console.error('Error loading ticket for edit:', error);
+                alert('Error loading ticket: ' + error.message);
+            }
+        }
+
+        function closeEditModal() {
+            document.getElementById('editTicketModal').style.display = 'none';
+        }
+
+        async function saveTicket() {
+            try {
+                const ticketId = document.getElementById('editTicketId').value;
+                const updates = {
+                    status: document.getElementById('editStatus').value,
+                    assigned_team: document.getElementById('editAssignedTeam').value,
+                    urgency: document.getElementById('editUrgency').value,
+                    intent: document.getElementById('editIntent').value,
+                    sender: document.getElementById('editSender').value,
+                    subject: document.getElementById('editSubject').value,
+                    message: document.getElementById('editMessage').value,
+                    response: document.getElementById('editResponse').value
+                };
+                
+                // Remove empty fields
+                Object.keys(updates).forEach(key => {
+                    if (updates[key] === '' || updates[key] === null) {
+                        delete updates[key];
+                    }
+                });
+                
+                const response = await fetch(`/api/tickets/${ticketId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updates)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert(`✅ ${data.message}\n\nUpdated fields: ${data.updated_fields?.join(', ') || 'N/A'}\n\nChanges have been saved to the database.`);
+                    closeEditModal();
+                    loadTickets(); // Refresh the ticket list to show database changes
+                    loadStats(); // Refresh stats to reflect database changes
+                } else {
+                    alert('❌ Error updating ticket: ' + (data.error || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error saving ticket:', error);
+                alert('Error saving ticket: ' + error.message);
+            }
+        }
+
+        async function deleteTicket(ticketId) {
+            if (!confirm(`Are you sure you want to delete ticket ${ticketId}?`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/tickets/${ticketId}`, {
+                    method: 'DELETE'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert(`✅ ${data.message}\n\nThe ticket has been permanently deleted from the database.`);
+                    loadTickets(); // Refresh the ticket list to reflect database changes
+                    loadStats(); // Refresh stats to reflect database changes
+                } else {
+                    alert('❌ Error deleting ticket: ' + (data.error || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error deleting ticket:', error);
+                alert('Error deleting ticket: ' + error.message);
+            }
+        }
+
+        async function deleteAllTickets() {
+            // Get current ticket count for confirmation
+            try {
+                const statsResponse = await fetch('/api/stats', {
+                    cache: 'no-store'
+                });
+                const statsData = await statsResponse.json();
+                const ticketCount = statsData.stats?.total_tickets || 0;
+                
+                if (ticketCount === 0) {
+                    alert('ℹ️ No tickets to delete.');
+                    return;
+                }
+                
+                const confirmMessage = `⚠️ WARNING: This will permanently delete ALL ${ticketCount} ticket(s) from the database.\n\nThis action cannot be undone!\n\nAre you absolutely sure you want to proceed?`;
+                
+                if (!confirm(confirmMessage)) {
+                    return;
+                }
+                
+                // Double confirmation for safety
+                if (!confirm('⚠️ Final confirmation: Delete ALL tickets?\n\nType OK or Cancel.')) {
+                    return;
+                }
+                
+                const response = await fetch('/api/tickets', {
+                    method: 'DELETE'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert(`✅ ${data.message}\n\nAll tickets have been permanently deleted from the database.`);
+                    loadTickets(); // Refresh the ticket list
+                    loadStats(); // Refresh stats
+                } else {
+                    alert('❌ Error deleting tickets: ' + (data.error || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error deleting all tickets:', error);
+                alert('Error deleting all tickets: ' + error.message);
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('editTicketModal');
+            if (event.target === modal) {
+                closeEditModal();
+            }
+        }
+
+        async function exportTickets() {
+            try {
+                const response = await fetch('/api/export_tickets');
+                
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({ error: 'Export failed' }));
+                    alert('Export failed: ' + (errorData.error || 'Unknown error'));
+                    return;
+                }
+                
+                // Get filename from Content-Disposition header or use default
+                const contentDisposition = response.headers.get('Content-Disposition');
+                let filename = 'tickets_export.csv';
+                if (contentDisposition) {
+                    const filenameMatch = contentDisposition.match(/filename="?(.+)"?/);
+                    if (filenameMatch) {
+                        filename = filenameMatch[1];
+                    }
+                }
+                
+                // Create blob and download
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+                
+                // Show success message
+                alert('✅ Tickets exported successfully!');
+            } catch (error) {
+                alert('Error exporting tickets: ' + error.message);
+            }
+        }
+
+        function showSection(section, evt) {
+            // Update active button
+            const buttons = document.querySelectorAll('.nav-links button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Find and activate the clicked button
+            if (evt && evt.target) {
+                evt.target.closest('button')?.classList.add('active');
+            }
+            
+            // Scroll to relevant section
+            if (section === 'intake') {
+                document.querySelector('.panel-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else if (section === 'operations') {
+                document.querySelector('#eventsBox')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else if (section === 'insights') {
+                document.querySelector('.tickets-panel')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Initialize form fields on page load
+        updateFormFields();
+
+        // Load initial data
+        loadStats();
+        loadTickets();
+        loadSamples();
+
+        // Auto-refresh stats and tickets periodically
+        setInterval(loadStats, 30000);  // Every 30 seconds
+        setInterval(loadTickets, 60000); // Every 60 seconds
+        
+        // Log initialization
+        console.log('✅ Application initialized');
+        console.log('📊 Auto-refresh: Stats every 30s, Tickets every 60s');
+    </script>
+</body>
+</html>
+

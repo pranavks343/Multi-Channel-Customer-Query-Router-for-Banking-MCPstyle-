@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Outage - Response Template Documentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+        h1 {
+            color: #2196f3;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        .category-badge {
+            display: inline-block;
+            background: #ffebee;
+            color: #c62828;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #333;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 8px;
+        }
+        .keywords {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        .keywords span {
+            display: inline-block;
+            background: white;
+            padding: 6px 12px;
+            margin: 4px;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+        }
+        .template-box {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .template-box h3 {
+            color: #c62828;
+            margin-bottom: 10px;
+        }
+        ul, ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #2196f3;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>System Outage</h1>
+        <span class="category-badge">system_outage</span>
+        
+        <h2>Overview</h2>
+        <p>This response template handles system outages and critical errors. It's used when customers report service disruptions, server errors, or system-wide issues affecting operations.</p>
+
+        <h2>Keywords</h2>
+        <div class="keywords">
+            <span>down</span>
+            <span>not working</span>
+            <span>500 error</span>
+            <span>504 error</span>
+            <span>timeout</span>
+            <span>outage</span>
+        </div>
+
+        <h2>Use Cases</h2>
+        <ul>
+            <li>Service outages and downtime</li>
+            <li>HTTP 500 Internal Server Errors</li>
+            <li>HTTP 504 Gateway Timeout errors</li>
+            <li>System-wide failures</li>
+            <li>Critical service disruptions</li>
+        </ul>
+
+        <h2>Common Scenarios</h2>
+        <ul>
+            <li><strong>Complete Outage:</strong> Service completely unavailable</li>
+            <li><strong>Server Errors:</strong> 500 errors indicating server problems</li>
+            <li><strong>Timeout Issues:</strong> 504 errors due to slow responses</li>
+            <li><strong>Partial Outage:</strong> Some features not working</li>
+            <li><strong>Performance Issues:</strong> System slow or unresponsive</li>
+        </ul>
+
+        <h2>Response Template</h2>
+        <div class="template-box">
+            <h3>Template Response</h3>
+            <p>We apologize for the service disruption. Our team has been notified and is investigating. You can check real-time status at status.finlink.com. For critical issues affecting operations, our Tech Support team will prioritize your case and provide updates every hour until resolved.</p>
+        </div>
+
+        <h2>Response Approach</h2>
+        <ol>
+            <li><strong>Apologize:</strong> Acknowledge the service disruption</li>
+            <li><strong>Action Taken:</strong> Confirm team has been notified</li>
+            <li><strong>Status Page:</strong> Provide status page link for updates</li>
+            <li><strong>Priority Handling:</strong> Promise priority for critical issues</li>
+            <li><strong>Update Frequency:</strong> Set expectation for regular updates</li>
+            <li><strong>Resolution Commitment:</strong> Promise resolution tracking</li>
+        </ol>
+
+        <h2>Error Types</h2>
+        <ul>
+            <li><strong>500 Internal Server Error:</strong> Server-side application error</li>
+            <li><strong>504 Gateway Timeout:</strong> Server taking too long to respond</li>
+            <li><strong>503 Service Unavailable:</strong> Service temporarily unavailable</li>
+            <li><strong>Connection Timeout:</strong> Unable to connect to server</li>
+            <li><strong>Complete Outage:</strong> Service completely down</li>
+        </ul>
+
+        <h2>Status Communication</h2>
+        <ul>
+            <li><strong>Status Page:</strong> Real-time status updates at status.finlink.com</li>
+            <li><strong>Hourly Updates:</strong> Regular updates during critical outages</li>
+            <li><strong>Incident Tracking:</strong> Track incident resolution progress</li>
+            <li><strong>Post-Mortem:</strong> Follow-up after resolution</li>
+        </ul>
+
+        <h2>When to Use</h2>
+        <p>This template is automatically selected by the RAG system when:</p>
+        <ul>
+            <li>Query mentions "down", "not working", "500 error", "504 error", "outage"</li>
+            <li>Intent is classified as <code>technical_support</code></li>
+            <li>Urgency is <strong>critical</strong></li>
+            <li>Customer reports system-wide issues or errors</li>
+        </ul>
+
+        <h2>Team Assignment</h2>
+        <p>Queries matching this template are routed to: <strong>Tech Support</strong></p>
+        <p><em>Note: Critical outages may also escalate to Tech Lead</em></p>
+
+        <a href="index.html" class="back-link">← Back to Documentation Index</a>
+    </div>
+</body>
+</html>
+

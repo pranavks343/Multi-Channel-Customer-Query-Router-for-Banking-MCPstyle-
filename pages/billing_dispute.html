@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing Dispute - Response Template Documentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+        h1 {
+            color: #2196f3;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        .category-badge {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #333;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 8px;
+        }
+        .keywords {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        .keywords span {
+            display: inline-block;
+            background: white;
+            padding: 6px 12px;
+            margin: 4px;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+        }
+        .template-box {
+            background: #fce4ec;
+            border-left: 4px solid #e91e63;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .template-box h3 {
+            color: #c2185b;
+            margin-bottom: 10px;
+        }
+        ul, ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #2196f3;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Billing Dispute</h1>
+        <span class="category-badge">billing_dispute</span>
+        
+        <h2>Overview</h2>
+        <p>This response template handles billing discrepancies and invoice issues. It's used when customers report incorrect charges, overcharges, or discrepancies in their invoices.</p>
+
+        <h2>Keywords</h2>
+        <div class="keywords">
+            <span>invoice</span>
+            <span>charge</span>
+            <span>billing</span>
+            <span>extra charge</span>
+            <span>overcharge</span>
+            <span>monthly invoice</span>
+            <span>discrepancy</span>
+        </div>
+
+        <h2>Use Cases</h2>
+        <ul>
+            <li>Incorrect charges on invoices</li>
+            <li>Extra or unexpected charges</li>
+            <li>Invoice discrepancies</li>
+            <li>Billing errors</li>
+            <li>Overcharges or duplicate charges</li>
+        </ul>
+
+        <h2>Common Scenarios</h2>
+        <ul>
+            <li><strong>Invoice Discrepancy:</strong> Customer notices extra charges on monthly invoice</li>
+            <li><strong>Overcharge:</strong> Amount charged is higher than expected</li>
+            <li><strong>Wrong Charges:</strong> Charges for services not used</li>
+            <li><strong>Billing Error:</strong> Mathematical errors in invoice calculation</li>
+            <li><strong>Dispute:</strong> Customer disputes specific line items</li>
+        </ul>
+
+        <h2>Response Template</h2>
+        <div class="template-box">
+            <h3>Template Response</h3>
+            <p>Hi [Customer], thanks for bringing this to our attention. We're reviewing your invoice to check the discrepancy you mentioned. Our Compliance team will verify the charges against your transaction records and confirm within 1 business day. If there's a billing error, we'll issue a correction immediately. Please provide the invoice number if you haven't already. Best regards, FinLink Support Team</p>
+        </div>
+
+        <h2>Response Approach</h2>
+        <ol>
+            <li><strong>Acknowledge:</strong> Thank customer for reporting the issue</li>
+            <li><strong>Investigation Promise:</strong> Commit to reviewing the invoice</li>
+            <li><strong>Team Assignment:</strong> Route to Compliance team (for disputes)</li>
+            <li><strong>Timeline:</strong> Set expectation (1 business day)</li>
+            <li><strong>Action Required:</strong> Request invoice number for tracking</li>
+            <li><strong>Resolution Promise:</strong> Commit to immediate correction if error found</li>
+        </ol>
+
+        <h2>Important Notes</h2>
+        <ul>
+            <li>Billing disputes are routed to <strong>Compliance Team</strong>, not Finance Team</li>
+            <li>This ensures proper investigation and audit trail</li>
+            <li>Disputes require careful verification against transaction records</li>
+            <li>Response time is typically 1 business day for investigation</li>
+        </ul>
+
+        <h2>When to Use</h2>
+        <p>This template is automatically selected by the RAG system when:</p>
+        <ul>
+            <li>Query mentions "invoice", "charge", "billing", "discrepancy"</li>
+            <li>Intent is classified as <code>billing_finance</code> with dispute indicators</li>
+            <li>Sentiment is negative (indicates complaint/dispute)</li>
+            <li>Key entities include amounts or invoice numbers</li>
+        </ul>
+
+        <h2>Team Assignment</h2>
+        <p>Queries matching this template are routed to: <strong>Compliance Team</strong></p>
+        <p><em>Note: Disputes go to Compliance for investigation, not Finance</em></p>
+
+        <a href="index.html" class="back-link">← Back to Documentation Index</a>
+    </div>
+</body>
+</html>
+

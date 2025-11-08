@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Channel - FinLink Command Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f5f5f5;
+            --glass: #ffffff;
+            --glass-border: #e0e0e0;
+            --primary: #2196f3;
+            --primary-strong: #1976d2;
+            --text: #333333;
+            --muted: #757575;
+            --success: #4caf50;
+            --warning: #ffc107;
+            --danger: #f44336;
+            --card-radius: 8px;
+            --transition: 200ms ease;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 40px clamp(24px, 4vw, 60px);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: var(--card-radius);
+            border: 1px solid var(--glass-border);
+            padding: 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            margin: 0 0 8px;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .header p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 16px;
+            transition: color var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary-strong);
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            padding: 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .panel header {
+            margin-bottom: 20px;
+        }
+
+        .panel h2 {
+            margin: 0 0 6px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .panel .muted {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .form-group {
+            display: grid;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: white;
+            border: 1px solid var(--glass-border);
+            color: var(--text);
+            border-radius: var(--card-radius);
+            padding: 12px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-group small {
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        .info-box {
+            background: rgba(33, 150, 243, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: var(--card-radius);
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .info-box h3 {
+            margin: 0 0 8px;
+            font-size: 1rem;
+            color: var(--primary);
+        }
+
+        .info-box p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .info-box ul {
+            margin: 8px 0 0;
+            padding-left: 20px;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .info-box li {
+            margin-bottom: 4px;
+        }
+
+        .gradient-button {
+            background: var(--primary);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: var(--card-radius);
+            cursor: pointer;
+            transition: background var(--transition);
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .gradient-button:hover {
+            background: var(--primary-strong);
+        }
+
+        .gradient-button:disabled {
+            background: var(--muted);
+            cursor: not-allowed;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: var(--text);
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            border: 3px solid var(--bg);
+            border-top-color: var(--primary);
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .result-box {
+            display: grid;
+            gap: 16px;
+            background: white;
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .result-box h3 {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-critical { background: var(--danger); color: white; }
+        .badge-high { background: var(--warning); color: #333; }
+        .badge-medium { background: var(--primary); color: white; }
+        .badge-low { background: var(--success); color: white; }
+
+        .result-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 12px;
+            border-radius: var(--card-radius);
+            background: var(--bg);
+            border: 1px solid var(--glass-border);
+            font-size: 0.9rem;
+        }
+
+        .result-item span:first-child {
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .result-item strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .response-box {
+            display: grid;
+            gap: 8px;
+            padding: 16px;
+            border-radius: var(--card-radius);
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid var(--success);
+            margin-top: 12px;
+        }
+
+        .response-box h4 {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .response-text {
+            margin: 0;
+            color: var(--text);
+            line-height: 1.6;
+            white-space: pre-wrap;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 720px) {
+            body {
+                padding: 24px 16px;
+            }
+
+            .panel {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📧 Email Channel</h1>
+            <p>Submit emails for automatic NLP classification and routing</p>
+            <a href="/" class="nav-link">← Back to Command Center</a>
+        </div>
+
+        <div class="panel">
+            <header>
+                <h2>Submit Email</h2>
+            </header>
+
+            <form id="emailForm" class="form-grid">
+                <div class="form-group">
+                    <label for="emailFrom">From (Email Address)</label>
+                    <input type="email" id="emailFrom" name="emailFrom" placeholder="customer@company.com" required>
+                    <small>Sender's email address</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="emailSubject">Subject</label>
+                    <input type="text" id="emailSubject" name="emailSubject" placeholder="API Error 403 - Payment Integration Failing" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="emailBody">Message Body</label>
+                    <textarea id="emailBody" name="emailBody" placeholder="Our payment integration is failing with error code 403. This is blocking all our transactions and affecting our business operations. We need immediate assistance." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="autoRespond" checked>
+                        Generate automatic response
+                    </label>
+                </div>
+
+                <div>
+                    <button type="submit" class="gradient-button" id="submitBtn">
+                        📧 Submit Email & Classify
+                    </button>
+                </div>
+            </form>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Processing email with NLP classification...</p>
+            </div>
+
+            <div id="resultBox"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('emailForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const loading = document.getElementById('loading');
+            const resultBox = document.getElementById('resultBox');
+            const submitBtn = document.getElementById('submitBtn');
+
+            loading.classList.add('active');
+            resultBox.innerHTML = '';
+            submitBtn.disabled = true;
+
+            const emailData = {
+                from: document.getElementById('emailFrom').value,
+                subject: document.getElementById('emailSubject').value,
+                body: document.getElementById('emailBody').value,
+                auto_respond: document.getElementById('autoRespond').checked
+            };
+
+            try {
+                const response = await fetch('/api/submit_email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(emailData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    displayResult(data.result);
+                    // Reset form
+                    document.getElementById('emailForm').reset();
+                    document.getElementById('autoRespond').checked = true;
+                } else {
+                    alert('Error: ' + (data.error || 'Unknown error'));
+                }
+            } catch (error) {
+                alert('Error submitting email: ' + error.message);
+            } finally {
+                loading.classList.remove('active');
+                submitBtn.disabled = false;
+            }
+        });
+
+        function displayResult(result) {
+            const resultBox = document.getElementById('resultBox');
+            const classification = result.classification;
+            const routing = result.routing;
+            const urgency = classification.urgency;
+
+            resultBox.innerHTML = `
+                <div class="result-box">
+                    <h3>
+                        <span>✅ Email Processed & Routed</span>
+                        <span class="badge badge-${urgency}">${urgency.toUpperCase()}</span>
+                    </h3>
+                    
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span>Ticket ID</span>
+                            <strong>${result.ticket_id}</strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Category / Intent</span>
+                            <strong>${classification.category}</strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Assigned Team</span>
+                            <strong>${routing.assigned_team}</strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Urgency</span>
+                            <strong>${urgency.toUpperCase()}</strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Confidence</span>
+                            <strong>${(classification.confidence * 100).toFixed(0)}%</strong>
+                        </div>
+                        <div class="result-item">
+                            <span>Sentiment</span>
+                            <strong>${classification.sentiment || 'neutral'}</strong>
+                        </div>
+                    </div>
+
+                    ${result.response && result.response.text ? `
+                        <div class="response-box">
+                            <h4>📝 Auto-Generated Response</h4>
+                            <p class="response-text">${result.response.text}</p>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+
+            // Scroll to result
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
+</body>
+</html>
+

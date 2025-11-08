@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Error 403 - Response Template Documentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+        h1 {
+            color: #2196f3;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        .category-badge {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #333;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 8px;
+        }
+        .keywords {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        .keywords span {
+            display: inline-block;
+            background: white;
+            padding: 6px 12px;
+            margin: 4px;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+        }
+        .template-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .template-box h3 {
+            color: #e65100;
+            margin-bottom: 10px;
+        }
+        ul, ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #2196f3;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>API Error 403</h1>
+        <span class="category-badge">api_error_403</span>
+        
+        <h2>Overview</h2>
+        <p>This response template provides troubleshooting guidance for HTTP 403 Forbidden errors in API integrations. It helps developers resolve authentication and authorization issues quickly.</p>
+
+        <h2>Keywords</h2>
+        <div class="keywords">
+            <span>403</span>
+            <span>forbidden</span>
+            <span>api error</span>
+            <span>authentication failed</span>
+            <span>api integration</span>
+            <span>payment data</span>
+        </div>
+
+        <h2>Use Cases</h2>
+        <ul>
+            <li>API requests returning 403 Forbidden status</li>
+            <li>Authentication token expiration issues</li>
+            <li>API key permission problems</li>
+            <li>Integration failures due to authorization</li>
+            <li>Payment data push errors</li>
+        </ul>
+
+        <h2>Common Scenarios</h2>
+        <ul>
+            <li><strong>Expired Tokens:</strong> API key has expired and needs regeneration</li>
+            <li><strong>Insufficient Permissions:</strong> API key lacks required scopes</li>
+            <li><strong>Wrong Environment:</strong> Using sandbox key in production or vice versa</li>
+            <li><strong>Integration Issues:</strong> Payment data push failing with 403</li>
+            <li><strong>Authentication Errors:</strong> Invalid credentials or malformed requests</li>
+        </ul>
+
+        <h2>Response Template</h2>
+        <div class="template-box">
+            <h3>Template Response</h3>
+            <p>Hi [Developer], a 403 error typically occurs when an authentication token has expired or lacks proper permissions. Please verify: (1) Your API key is active and hasn't expired, (2) Regenerate your API key from the dashboard under Settings > API Keys, (3) Ensure you're using the correct base URL (sandbox vs production). If the issue persists after regenerating your key, please share the request ID with our Tech Support team, and we'll investigate further. Best regards, FinLink Support Team</p>
+        </div>
+
+        <h2>Response Approach</h2>
+        <ol>
+            <li><strong>Explain the Issue:</strong> Clarify what 403 error means</li>
+            <li><strong>Common Causes:</strong> List typical reasons (expired token, permissions)</li>
+            <li><strong>Step-by-Step Fix:</strong> Provide actionable troubleshooting steps</li>
+            <li><strong>Environment Check:</strong> Remind about sandbox vs production</li>
+            <li><strong>Escalation Path:</strong> Offer further support if issue persists</li>
+        </ol>
+
+        <h2>Technical Details</h2>
+        <p>HTTP 403 Forbidden indicates:</p>
+        <ul>
+            <li>The server understood the request but refuses to authorize it</li>
+            <li>Authentication succeeded but authorization failed</li>
+            <li>Common causes: expired tokens, insufficient permissions, IP restrictions</li>
+        </ul>
+
+        <h2>When to Use</h2>
+        <p>This template is automatically selected by the RAG system when:</p>
+        <ul>
+            <li>Query mentions "403", "forbidden", or "authentication failed"</li>
+            <li>Intent is classified as <code>technical_support</code></li>
+            <li>Urgency is high (blocking operations)</li>
+            <li>Customer mentions API integration issues</li>
+        </ul>
+
+        <h2>Team Assignment</h2>
+        <p>Queries matching this template are routed to: <strong>Tech Support</strong></p>
+
+        <a href="index.html" class="back-link">← Back to Documentation Index</a>
+    </div>
+</body>
+</html>
+

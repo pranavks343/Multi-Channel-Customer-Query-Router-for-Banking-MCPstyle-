@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Response Template Documentation - Index</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+        h1 {
+            color: #2196f3;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        .subtitle {
+            color: #757575;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+        .intro {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            margin-bottom: 40px;
+            border-radius: 4px;
+        }
+        .intro h2 {
+            color: #1976d2;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .template-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .template-card:hover {
+            border-color: #2196f3;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .template-card h3 {
+            color: #2196f3;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        .template-badge {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .template-card p {
+            color: #757575;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+        .template-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+        .keyword-tag {
+            background: #f5f5f5;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        .team-badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .team-badge.tech { background: #fff3e0; color: #e65100; }
+        .team-badge.finance { background: #e1f5fe; color: #01579b; }
+        .team-badge.compliance { background: #f3e5f5; color: #6a1b9a; }
+        .team-badge.sales { background: #fff9c4; color: #f57f17; }
+        .team-badge.kyc { background: #e8f5e9; color: #2e7d32; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Response Template Documentation</h1>
+        <p class="subtitle">Complete guide to all RAG system response templates</p>
+
+        <div class="intro">
+            <h2>About These Templates</h2>
+            <p>These response templates are used by the RAG (Retrieval Augmented Generation) system to generate intelligent, contextual responses to customer queries. Each template is automatically selected based on semantic similarity matching between the customer query and template keywords.</p>
+            <p><strong>How it works:</strong> When a customer submits a query, the system searches these templates using semantic similarity, retrieves the most relevant ones, and uses them as context for Gemini AI to generate personalized responses.</p>
+        </div>
+
+        <h2 style="margin-top: 40px; margin-bottom: 20px; color: #333;">All Response Templates</h2>
+        
+        <div class="templates-grid">
+            <a href="kyc_pending.html" class="template-card">
+                <span class="template-badge">kyc_pending</span>
+                <h3>1. KYC Pending</h3>
+                <p>Handles verification delays and pending account issues</p>
+                <div class="template-keywords">
+                    <span class="keyword-tag">verification stuck</span>
+                    <span class="keyword-tag">pending</span>
+                    <span class="keyword-tag">account verification</span>
+                </div>
+                <span class="team-badge kyc">KYC Team</span>
+            </a>
+
+            <a href="api_error_403.html" class="template-card">
+                <span class="template-badge">api_error_403</span>
+                <h3>2. API Error 403</h3>
+                <p>Troubleshooting guide for 403 authentication errors</p>
+                <div class="template-keywords">
+                    <span class="keyword-tag">403</span>
+                    <span class="keyword-tag">forbidden</span>
+                    <span class="keyword-tag">api error</span>
+                </div>
+                <span class="team-badge tech">Tech Support</span>
+            </a>
+
+            <a href="billing_dispute.html" class="template-card">
+                <span class="template-badge">billing_dispute</span>
+                <h3>3. Billing Dispute</h3>
+                <p>Response for billing discrepancies and invoice issues</p>
+                <div class="template-keywords">
+                    <span class="keyword-tag">invoice</span>
+                    <span class="keyword-tag">charge</span>
+                    <span class="keyword-tag">discrepancy</span>
+                </div>
+                <span class="team-badge compliance">Compliance Team</span>
+            </a>
+
+            <a href="payment_missing.html" class="template-card">
+                <span class="template-badge">payment_missing</span>
+                <h3>4. Payment Missing</h3>
+                <p>Helps trace missing payments and transfers</p>
+                <div class="template-keywords">
+                    <span class="keyword-tag">payment not received</span>
+                    <span class="keyword-tag">transfer not showing</span>
+                    <span class="keyword-tag">missing payment</span>
+                </div>
+                <span class="team-badge finance">Finance Team</span>
+            </a>
+
+            <a href="api_rate_limit.html" class="template-card">
+                <span class="template-badge">api_rate_limit</span>
+                <h3>5. API Rate Limit</h3>
+                <p>Guidance on rate limiting and API usage</p>
+                <div class="template-keywords">
+                    <span class="keyword-tag">rate limit</span>
+                    <span class="keyword-tag">429</span>
+                    <span class="keyword-tag">throttling</span>
+                </div>
+                <span class="team-badge tech">Tech Support</span>
+            </a>
+
+            <a href="webhook_issue.html" class="template-card">
+                <span class="template-badge">webhook_issue</span>
+                <h3>6. Webhook Issue</h3>
+                <p>Troubleshooting webhook delivery problems</p>
+                <div class="template-keywords">
+                    <span class="keyword-tag">webhook</span>
+                    <span class="keyword-tag">callback</span>
+                    <span class="keyword-tag">notification not received</span>
+                </div>
+                <span class="team-badge tech">Tech Support</span>
+            </a>
+
+            <a href="documentation_request.html" class="template-card">
+                <span class="template-badge">documentation_request</span>
+                <h3>7. Documentation Request</h3>
+                <p>Points to documentation resources</p>
+                <div class="template-keywords">
+                    <span class="keyword-tag">documentation</span>
+                    <span class="keyword-tag">how to</span>
+                    <span class="keyword-tag">guide</span>
+                </div>
+                <span class="team-badge tech">Tech Support</span>
+            </a>
+
+            <a href="compliance_request.html" class="template-card">
+                <span class="template-badge">compliance_request</span>
+                <h3>8. Compliance Request</h3>
+                <p>Information about compliance certifications</p>
+                <div class="template-keywords">
+                    <span class="keyword-tag">compliance</span>
+                    <span class="keyword-tag">gdpr</span>
+                    <span class="keyword-tag">pci dss</span>
+                </div>
+                <span class="team-badge compliance">Compliance Team</span>
+            </a>
+
+            <a href="refund_request.html" class="template-card">
+                <span class="template-badge">refund_request</span>
+                <h3>9. Refund Request</h3>
+                <p>Process for handling refund requests</p>
+                <div class="template-keywords">
+                    <span class="keyword-tag">refund</span>
+                    <span class="keyword-tag">duplicate charge</span>
+                    <span class="keyword-tag">charged twice</span>
+                </div>
+                <span class="team-badge finance">Finance Team</span>
+            </a>
+
+            <a href="sales_inquiry.html" class="template-card">
+                <span class="template-badge">sales_inquiry</span>
+                <h3>10. Sales Inquiry</h3>
+                <p>Response for sales and partnership inquiries</p>
+                <div class="template-keywords">
+                    <span class="keyword-tag">demo</span>
+                    <span class="keyword-tag">pricing</span>
+                    <span class="keyword-tag">enterprise plan</span>
+                </div>
+                <span class="team-badge sales">Sales Team</span>
+            </a>
+
+            <a href="identity_verification.html" class="template-card">
+                <span class="template-badge">identity_verification</span>
+                <h3>11. Identity Verification</h3>
+                <p>Guidance on identity verification issues</p>
+                <div class="template-keywords">
+                    <span class="keyword-tag">identity verification</span>
+                    <span class="keyword-tag">id verification</span>
+                    <span class="keyword-tag">verification failing</span>
+                </div>
+                <span class="team-badge kyc">KYC Team</span>
+            </a>
+
+            <a href="system_outage.html" class="template-card">
+                <span class="template-badge">system_outage</span>
+                <h3>12. System Outage</h3>
+                <p>Response for system outages and errors</p>
+                <div class="template-keywords">
+                    <span class="keyword-tag">down</span>
+                    <span class="keyword-tag">not working</span>
+                    <span class="keyword-tag">500 error</span>
+                </div>
+                <span class="team-badge tech">Tech Support</span>
+            </a>
+        </div>
+
+        <div style="margin-top: 40px; padding: 20px; background: #f5f5f5; border-radius: 8px;">
+            <h3 style="margin-bottom: 15px; color: #333;">How Templates Are Used</h3>
+            <ol style="margin-left: 20px; color: #666;">
+                <li>Customer submits a query via email, form, or chat</li>
+                <li>NLP classifies the intent and urgency</li>
+                <li>RAG system searches templates using semantic similarity</li>
+                <li>Top 3 most relevant templates are retrieved</li>
+                <li>Gemini AI generates personalized response using templates as context</li>
+                <li>Response is returned to customer and stored with ticket</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>
+

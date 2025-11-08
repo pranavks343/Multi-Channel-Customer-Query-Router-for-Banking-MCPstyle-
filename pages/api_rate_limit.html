@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Rate Limit - Response Template Documentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+        h1 {
+            color: #2196f3;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        .category-badge {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #333;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 8px;
+        }
+        .keywords {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        .keywords span {
+            display: inline-block;
+            background: white;
+            padding: 6px 12px;
+            margin: 4px;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+        }
+        .template-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .template-box h3 {
+            color: #e65100;
+            margin-bottom: 10px;
+        }
+        ul, ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #2196f3;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>API Rate Limit</h1>
+        <span class="category-badge">api_rate_limit</span>
+        
+        <h2>Overview</h2>
+        <p>This response template provides guidance on rate limiting and API usage. It helps developers understand rate limits and implement best practices to avoid hitting throttling limits.</p>
+
+        <h2>Keywords</h2>
+        <div class="keywords">
+            <span>rate limit</span>
+            <span>429</span>
+            <span>too many requests</span>
+            <span>throttling</span>
+        </div>
+
+        <h2>Use Cases</h2>
+        <ul>
+            <li>HTTP 429 Too Many Requests errors</li>
+            <li>API rate limit exceeded</li>
+            <li>Throttling issues during peak usage</li>
+            <li>Need to understand rate limit policies</li>
+            <li>Optimizing API usage patterns</li>
+        </ul>
+
+        <h2>Common Scenarios</h2>
+        <ul>
+            <li><strong>Peak Hours:</strong> Hitting rate limits during high-traffic periods</li>
+            <li><strong>Burst Requests:</strong> Sending too many requests in short time</li>
+            <li><strong>Plan Limits:</strong> Exceeding current plan's rate limit</li>
+            <li><strong>Optimization:</strong> Need guidance on efficient API usage</li>
+            <li><strong>Upgrade Inquiry:</strong> Considering plan upgrade for higher limits</li>
+        </ul>
+
+        <h2>Response Template</h2>
+        <div class="template-box">
+            <h3>Template Response</h3>
+            <p>Rate limits are in place to ensure system stability. Your current plan allows X requests per minute. If you're hitting limits during normal usage: (1) Consider implementing exponential backoff, (2) Cache responses when possible, (3) Review if you need to upgrade your plan. Our Tech Support team can analyze your usage patterns and recommend the appropriate plan.</p>
+        </div>
+
+        <h2>Response Approach</h2>
+        <ol>
+            <li><strong>Explain Purpose:</strong> Why rate limits exist (system stability)</li>
+            <li><strong>Current Limits:</strong> Reference their plan's rate limit</li>
+            <li><strong>Best Practices:</strong> Provide optimization strategies</li>
+            <li><strong>Solutions:</strong> Suggest exponential backoff and caching</li>
+            <li><strong>Upgrade Option:</strong> Mention plan upgrade if needed</li>
+            <li><strong>Support Offer:</strong> Offer usage pattern analysis</li>
+        </ol>
+
+        <h2>Best Practices</h2>
+        <ul>
+            <li><strong>Exponential Backoff:</strong> Gradually increase wait time between retries</li>
+            <li><strong>Caching:</strong> Cache responses to reduce API calls</li>
+            <li><strong>Request Batching:</strong> Combine multiple operations when possible</li>
+            <li><strong>Monitor Usage:</strong> Track API call patterns</li>
+            <li><strong>Plan Upgrade:</strong> Consider higher tier if consistently hitting limits</li>
+        </ul>
+
+        <h2>When to Use</h2>
+        <p>This template is automatically selected by the RAG system when:</p>
+        <ul>
+            <li>Query mentions "rate limit", "429", "throttling", "too many requests"</li>
+            <li>Intent is classified as <code>technical_support</code></li>
+            <li>Urgency is medium to high</li>
+            <li>Customer mentions API throttling or rate limit errors</li>
+        </ul>
+
+        <h2>Team Assignment</h2>
+        <p>Queries matching this template are routed to: <strong>Tech Support</strong></p>
+
+        <a href="index.html" class="back-link">← Back to Documentation Index</a>
+    </div>
+</body>
+</html>
+
